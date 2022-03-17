@@ -27,7 +27,7 @@ class Photo(FloatLayout):
 
     def _update_image(self, path):
         self.image.source = path
-        self.label.text = os.path.basename(path)
+        self.label.text = self._files.get_date()
 
     def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
         print(keycode)
