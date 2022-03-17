@@ -1,4 +1,4 @@
-import sys
+from images import RawFolder
 
 from kivy.app import App
 from kivy.core.window import Window
@@ -9,6 +9,8 @@ class Photo(Image):
         super(Photo, self).__init__(**kwargs)
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
+        self._files = RawFolder()
+        self.source = self._files.get_next_image()
 
     def _keyboard_closed(self):
         self._keyboard.unbind(on_key_down=self._on_keyboard_down)
@@ -18,12 +20,16 @@ class Photo(Image):
         print(keycode)
         if keycode[1] == "q":
             App.get_running_app().stop()
-            
+        if keycode[1] == "right":
+            self.source = self._files.get_next_image()
+        if keycode[1] == "left":
+            self.source = self._files.get_prev_image()
+
         return True
 
 class CullApp(App):
     def build(self):
-        return Photo(source="IMG_3838_80d.cr2")
+        return Photo()
 
 if __name__ == "__main__":
     CullApp().run()
