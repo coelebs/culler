@@ -24,7 +24,7 @@ class Photo(FloatLayout):
         self.add_widget(self.imagewidget)
         self.add_widget(self.date)
         self.add_widget(self.stars)
-        self.image = self._files.get_next_image()
+        self.image = self._files.get_image()
         self._update_image()
 
     def _keyboard_closed(self):
